@@ -6,8 +6,10 @@ using System.Threading.Tasks;
 
 namespace MessageQueueArchitecture.Commons.Interfaces
 {
-    public interface IServer
+    public interface IServer<T>
     {
         void Run();
+        Task Receive(Action<T> receiver);
+        long TotalMessages { get; set; }
     }
 }

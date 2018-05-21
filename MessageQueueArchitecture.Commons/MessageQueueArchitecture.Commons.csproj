@@ -40,9 +40,13 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Classes\MessageReceivingMachine.cs" />
+    <Compile Include="Classes\MessageSendingMachine.cs" />
     <Compile Include="Interfaces\IClient.cs" />
+    <Compile Include="Interfaces\IMessageLoader.cs" />
     <Compile Include="Interfaces\IServer.cs" />
     <Compile Include="Messages\MessageLoader.cs" />
+    <Compile Include="Messages\PerfomanceTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

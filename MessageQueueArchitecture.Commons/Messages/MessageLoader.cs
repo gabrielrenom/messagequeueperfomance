@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MessageQueueArchitecture.Commons.Interfaces;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -7,10 +8,10 @@ using System.Threading.Tasks;
 
 namespace MessageQueueArchitecture.Commons.Messages
 {
-    public static class MessageLoader
+    public class MessageLoader: IMessageLoader
     {  
 
-        public static string GetClaim() =>  @"<PMCClaim>
+        public string GetClaim() =>  @"<PMCClaim>
   <Audit>
     <CreationUserId>0</CreationUserId>
     <CreatedDateTime>2017-05-11T10:55:25.335516+01:00</CreatedDateTime>

@@ -10,45 +10,19 @@ using System.Threading.Tasks;
 
 namespace MessageQueueArchitecture.MSMQ
 {
-    class Program
-    {
-        private static int INSTANCES = 10;
-        private static string LOCAL_QUEUE = ".\\DefaultPublicQueue";
-        private static string REMOTE_QUEUE = @"FormatName:DIRECT=TCP:51.144.79.189\Private$\DefaultQueue"; //"51.144.79.189\\Private$\\DefaultPublicQueue";
+    public class Program
+    {       
         static void Main(string[] args)
         {
-            //IClient client = new Client(@".\Private$\DefaultQueue");
-            //IClient client = new Client(".\\DefaultPublicQueue");
-            IClient client = new Client(REMOTE_QUEUE);
-            //IServer server = new Server(@".\Private$\DefaultQueue", MessageLoader.GetClaim(),10);
-            IServer server = new Server(REMOTE_QUEUE, MessageLoader.GetClaim(), 10);
-            server.Run();
-            client.Run();
-            server.Run();
+            IMessageLoader _loader = new MessageLoader();
 
-            Console.WriteLine("Ready To test Message Queue");
+            const long numberOfMessages = 500;
 
-            for (int i = 0; i < INSTANCES; i++)
-            {
-                var serverthread = new Thread(server.Run);                
+            var msmq = new MSMQ<string>(_loader);
 
-                serverthread.Name = $"SERVER:{i}";                
+            new PerfomanceTest(msmq, msmq).Run(500, numberOfMessages);
 
-                serverthread.Start();                   
-            }
-
-            System.Threading.Thread.Sleep(1000);
-
-            for (int i = 0; i < INSTANCES; i++)
-            {                
-                var clientthread = new Thread(client.Run);
-             
-                clientthread.Name = $"CLIENT:{i}";
-
-                clientthread.Start();
-            }
-
-            Console.ReadKey();       
-        }
+            Console.ReadKey();
+        }            
     }
 }

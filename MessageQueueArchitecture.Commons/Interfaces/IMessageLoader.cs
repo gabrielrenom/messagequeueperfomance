@@ -6,9 +6,8 @@ using System.Threading.Tasks;
 
 namespace MessageQueueArchitecture.Commons.Interfaces
 {
-    public interface IClient<in T>
+    public interface IMessageLoader
     {
-        void Run();
-        Task Send(T message);        
+        string GetClaim();
     }
 }
